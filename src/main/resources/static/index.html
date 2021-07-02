@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>DonutQueue</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        var gRandLength = 5;
+
+        $(document).ready(function() {
+            $('#button').click(function() {
+                var num = Math.floor(1 + (Math.random() * Math.pow(10, gRandLength))) * 2;
+                $('#clientID').val(num);
+            });
+        });
+    </script>
+</head>
+<body>
+    <p><a href="/hello">Add Dounut order!</a></p>
+
+    <form action="/order" method="POST" id="createOrder">
+        <div>
+            <input name="clientID" id="clientID" type="number" style="display: none">
+
+            <label for="number">Number of Dounuts: </label>
+            <input name="number" id="number" type="number"> <br>
+            <button id="button">send Order</button>
+        </div>
+    </form>
+</body>
+</html>
