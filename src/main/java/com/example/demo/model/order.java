@@ -4,10 +4,16 @@ public class Order {
     private int id;
     private int clientID;
     private int number;
+    private int wait;
 
-    public Order(int clientID, int number) {
-        this. number = number;
+    public Order(int id, int clientID, int number) {
+        this.id = id;
+        this.number = number;
         this.clientID = clientID;
+    }
+
+    public int getWait() {
+        return wait;
     }
 
     public int getId() {
@@ -20,6 +26,10 @@ public class Order {
 
     public int getNumber() {
         return number;
+    }
+
+    public void setWait(int wait) {
+        this.wait = wait;
     }
 
     public void setId(int id) {
