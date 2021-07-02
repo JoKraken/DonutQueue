@@ -12,7 +12,8 @@ import com.example.demo.service.OrderService;
 
 @SpringBootApplication
 @RestController
-public class DemoApplication<OrderService> {
+public class DemoApplication {
+
     @Autowired
     OrderService orderService;
 
@@ -24,17 +25,45 @@ public class DemoApplication<OrderService> {
     public ResponseEntity<Object> getOrder() {
         return new ResponseEntity<>(orderService.getOrders(), HttpStatus.OK);
     }
+    @GetMapping("/ordersPrio")
+    public ResponseEntity<Object> getOrdersPrio() {
+        return new ResponseEntity<>(orderService.getOrdersPrio(), HttpStatus.OK);
+    }
+    @GetMapping("/ordersNormal")
+    public ResponseEntity<Object> getOrdersNormal() {
+        return new ResponseEntity<>(orderService.getOrdersNormal(), HttpStatus.OK);
+    }
+    @GetMapping("/nextPickup")
+    public ResponseEntity<Object> getNextPickup() {
+        return new ResponseEntity<>(orderService.getNextPickup(), HttpStatus.OK);
+    }
+    @GetMapping("/getWait")
+    public ResponseEntity<Object> getWait(@RequestParam(value = "clientID") int clientID) {
+        return new ResponseEntity<>(orderService.getWait(clientID), HttpStatus.OK);
+    }
 
     @PostMapping("/order")
-    public ResponseEntity<Object>  createOrder(@RequestParam(value = "clientID") int clientID, @RequestParam(value = "number") int number) {
+    public ResponseEntity<Object> createOrder(@RequestParam(value = "clientID") int clientID, @RequestParam(value = "number") int number) {
         orderService.createOrder(clientID, number);
         return new ResponseEntity<>("Order is created successsfully", HttpStatus.OK);
     }
 
+    @GetMapping("/deleteOrder")
+    public ResponseEntity<Object> deleteOrderGet(@RequestParam(value = "clientID") int clientID) {
+        if(orderService.deleteOrder(clientID) == 200){
+            return new ResponseEntity<>("Order is deleted successsfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Order is deleted unsuccesssfully", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/order")
-    public ResponseEntity<Object>  deleteOrder(@RequestParam(value = "dountID") int dountID) {
-        orderService.deleteOrder(dountID);
-        return new ResponseEntity<>("Order is created successsfully", HttpStatus.OK);
+    public ResponseEntity<Object> deleteOrder(@RequestParam(value = "clientID") int clientID) {
+        if(orderService.deleteOrder(clientID) == 200){
+            return new ResponseEntity<>("Order is deleted successsfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Order is deleted unsuccesssfully", HttpStatus.NOT_FOUND);
+        }
     }
 
 }
